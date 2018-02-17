@@ -13,16 +13,73 @@ def move_up_row(row1, row2, row3):
     return [row1,row2,row3]
 
 
+def move_right(row):
+    index = row.index(0)
+    item0 = row[0]
+    item1 = row[1]
+    item2 = row[2]
+    newrow = list(row)
 
+    if index == 0:
+        newrow[0] = item1
+        newrow[1] = item0
+    elif index == 1:
+        newrow[1] = item2
+        newrow[2] = item1
+
+    print(row)
+    print(" right ->")
+    print(newrow)
+    print("\n")
+    return newrow
+
+
+
+def move_left(row):
+    index = row.index(0)
+    item0 = row[0]
+    item1 = row[1]
+    item2 = row[2]
+    newrow = list(row)
+
+    if index == 1:
+        newrow[1] = item0
+        newrow[0] = item1
+    elif index == 2:
+        newrow[2] = item1
+        newrow[1] = item2
+
+    print(row)
+    print(" left <-")
+    print(newrow)
+    print("\n")
+
+    return newrow
+
+
+#test board movements
 
 goalState = [[0,1,2],[3,4,5],[6,7,8]]
 
+
+
 boardInput = [[2,1,0],[3,4,5],[6,7,8]]
 
-boardInput2 = [[3,4,5],[2,1,0],[6,7,8]]
+newBoard = move_up_row(boardInput[0],boardInput[1], boardInput[2])
 
-newBoard = move_up_row(boardInput2[0],boardInput2[1], boardInput2[2])
+#print(boardInput)
+#print(newBoard)
 
-print(boardInput)
-print(newBoard)
+testRow1 = [0,1,2]
+testRow2 = [1,0,2]
+testRow3 = [2,1,0]
+
+
+move_right(testRow1)
+move_right(testRow2)
+move_right(testRow3)
+
+move_left(testRow1)
+move_left(testRow2)
+move_left(testRow3)
 
