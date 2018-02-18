@@ -12,6 +12,12 @@ def move_up_row(row1, row2, row3):
         print(row2)
     return [row1,row2,row3]
 
+def canMoveRight(row):
+    zeroIndex = row.index(0)
+    if zeroIndex != 2:
+        return True
+    else:
+        return False
 
 def move_right(row):
     index = row.index(0)
@@ -33,7 +39,12 @@ def move_right(row):
     print("\n")
     return newrow
 
-
+def canMoveLeft(row):
+    zeroIndex = row.index(0)
+    if zeroIndex != 0:
+        return True
+    else:
+        return False
 
 def move_left(row):
     index = row.index(0)
