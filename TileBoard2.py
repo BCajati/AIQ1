@@ -36,7 +36,6 @@ class TileBoard(object):
         self.tileList.append(Tile(2, 0, value7))
         self.tileList.append(Tile(2, 1, value8))
         self.tileList.append(Tile(2, 2, value9))
-        # todo foreach loop to find tile 0
         for x in self.tileList:
             if x.value == 0:
                 self.tile_zero = x
@@ -83,14 +82,14 @@ class TileBoard(object):
 board1 = TileBoard(0,1,2,3,4,5,6,7,8)
 #board2 = TileBoard(3,4,5,1,0,2,6,7,8)
 
-board2 = board1.copy_board()
-board1.show()
-board2.show()
+#board2 = board1.copy_board()
+#board1.show()
+#board2.show()
 
 #board2.move_left()
 #board2.show()
 
-print(board1.can_move_down())
-print(board2.can_move_down())
+#print(board1.can_move_down())
+#print(board2.can_move_down())
 
 

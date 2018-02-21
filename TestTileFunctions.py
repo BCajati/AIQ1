@@ -1,4 +1,4 @@
-from TileBoard import *
+from TileBoard2 import *
 
 tile1 = Tile(0,0,1)
 tile1.show()
