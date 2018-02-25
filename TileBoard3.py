@@ -63,21 +63,27 @@ class TileBoard(object):
 
     def can_move_up(self):
         if self.tile_zero.index in (3,4,5,6,7,8):
-            return False
+            return True
         else:
-           return True
+           return False
 
     def can_move_down(self):
         if self.tile_zero.index in (0,1,2,3,4,5):
-            return False
-        else:
             return True
+        else:
+            return False
 
     def can_move_left(self):
         if self.tile_zero.index in (1,2,4,5,7,8):
-            return False
-        else:
             return True
+        else:
+            return False
+
+    def can_move_right(self):
+        if self.tile_zero.index in (0, 1, 3, 4, 6, 7):
+            return True
+        else:
+            return False
 
     def move_left(self):
         tileIndexToSwap = self.tile_zero.index - 1
