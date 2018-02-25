@@ -47,6 +47,20 @@ class TileBoard(object):
     def tiles(self):
         return self.tileList
 
+    def sortedTiles(self):
+        tileValues = []
+        sortedList = sorted(self.tileList, key=indexSort)
+        tileValues.append(sortedList[0].value)
+        tileValues.append(sortedList[1].value)
+        tileValues.append(sortedList[2].value)
+        tileValues.append(sortedList[3].value)
+        tileValues.append(sortedList[4].value)
+        tileValues.append(sortedList[5].value)
+        tileValues.append(sortedList[6].value)
+        tileValues.append(sortedList[7].value)
+        tileValues.append(sortedList[8].value)
+        return tileValues
+
     def can_move_up(self):
         if self.tile_zero.index in (3,4,5,6,7,8):
             return False
@@ -95,8 +109,6 @@ class TileBoard(object):
         for tile in self.tileList:
             if tile.index == atIndex:
                 return tile
-
-
 
     def show(self):
         sortedList = sorted(self.tileList, key=indexSort)
