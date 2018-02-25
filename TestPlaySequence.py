@@ -2,6 +2,12 @@ from TileBoard3 import *
 from copy import deepcopy
 from queue import *
 
+#TODO - I think I am removing from queue while searching
+#TODO - Need to add search in explored also
+
+def doDebug():
+    return False
+
 def listsAreSame(x, y, len):
     newList = [i for i, j in zip(x, y) if i == j]
     if newList.__len__() == len:
@@ -23,7 +29,9 @@ def boardFoundInQueue(boardQueue, board):
     return False
 
 def addMoveDownBoard(node):
-    if board1.can_move_down():
+    if node.can_move_down():
+        if doDebug():
+            node.show()
         nodeDown = deepcopy(node)
         nodeDown.move_down()
         # see if this board already exists in frontier
@@ -32,7 +40,9 @@ def addMoveDownBoard(node):
             frontier.put(nodeDown)
 
 def addMoveUpBoard(node):
-    if board1.can_move_up():
+    if node.can_move_up():
+        if doDebug():
+            board1.show()
         nodeUp = deepcopy(node)
         nodeUp.move_up()
         # see if this board already exists in frontier
@@ -41,7 +51,7 @@ def addMoveUpBoard(node):
             frontier.put(nodeUp)
 
 def addMoveRightBoard(node):
-    if board1.can_move_right():
+    if node.can_move_right():
         nodeRight = deepcopy(node)
         nodeRight.move_right()
         # see if this board already exists in frontier
@@ -66,15 +76,34 @@ def showFrontier():
 
 
 board1 = CreateInitialBoard()
+goalBoard = CreateGoalBoard()
 
 frontier = LifoQueue()
-explored = {}
+explored = set()
+visited = set()
 frontier.put(board1)
 
-addMoveRightBoard(board1)
-addMoveLeftBoard(board1)
-addMoveUpBoard(board1)
-addMoveDownBoard(board1)
+loop = 0
+while True:
+    loop += 1
+    node = frontier.get()
+    explored.add(node)
+    node.show()
+    if boardsAreSame(node, goalBoard):
+        print("Found Goal")
+
+    # add child nodes
+    addMoveRightBoard(node)
+    addMoveLeftBoard(node)
+    addMoveUpBoard(node)
+    addMoveDownBoard(node)
+    if loop == 20:
+        break
+
+
+
+
+
 
 
 

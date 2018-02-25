@@ -133,7 +133,7 @@ def CreateChildBoard(existingBoard):
                      childList[6], childList[7], childList[8])
 
 
-def CreateInitialBoard():
+def CreateInitialBoard1():
     tile1 = Tile(0,0)
     tile2 = Tile(1,9)
     tile3 = Tile(2,5)
@@ -143,5 +143,30 @@ def CreateInitialBoard():
     tile7 = Tile(6,3)
     tile8 = Tile(7,4)
     tile9 = Tile(8,6)
+    return TileBoard(tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8, tile9)
+
+
+def CreateInitialBoard():
+    tile1 = Tile(0,2)
+    tile2 = Tile(1,1)
+    tile3 = Tile(2,0)
+    tile4 = Tile(3,3)
+    tile5 = Tile(4,4)
+    tile6 = Tile(5,5)
+    tile7 = Tile(6,6)
+    tile8 = Tile(7,7)
+    tile9 = Tile(8,8)
+    return TileBoard(tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8, tile9)
+
+def CreateGoalBoard():
+    tile1 = Tile(0,0)
+    tile2 = Tile(1,1)
+    tile3 = Tile(2,2)
+    tile4 = Tile(3,3)
+    tile5 = Tile(4,4)
+    tile6 = Tile(5,5)
+    tile7 = Tile(6,6)
+    tile8 = Tile(7,7)
+    tile9 = Tile(8,8)
     return TileBoard(tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8, tile9)
 
