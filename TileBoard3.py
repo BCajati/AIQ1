@@ -110,7 +110,7 @@ def indexSort(Tile):
     return Tile.index
 
 def CreateChildBoard(existingBoard):
-    childList = sorted(existingBoard, key=indexSort)
+    childList = sorted(existingBoard.tiles, key=indexSort)
     return TileBoard(childList[0], childList[1], childList[2], childList[3], childList[4], childList[5],
                      childList[6], childList[7], childList[8])
 

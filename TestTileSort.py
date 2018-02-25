@@ -21,3 +21,30 @@ myList3 = sorted(myList2, key=indexSort)
 for t in myList3:
     print(t.index, ",", t.value)
 
+def listCompare(x,y):
+    return [i for i, j in zip(x,y) if i == j]
+
+def listsAreSame(x,y, len):
+    newList = [i for i, j in zip(x,y) if i == j]
+    if newList.__len__() == len:
+        return True
+    else:
+        return False
+
+print ("test list compare")
+lista = [2,3,1]
+listb = [2,3,1]
+listc = [0,3,1]
+
+print(lista)
+print(listc)
+print( listsAreSame(lista, listc,3))
+
+print( listsAreSame(lista, listb,3))
+
+#listd = listCompare(lista, listc)
+#print(listd)
+#print(listd.__len__())
+#print( listCompare(lista, listc))
+
+
