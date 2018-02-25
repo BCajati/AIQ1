@@ -43,6 +43,8 @@ class TileBoard(object):
             if x.value == 0:
                 self.tile_zero = x
 
+    def tiles(self):
+        return self.tileList
 
     def can_move_up(self):
         if self.tile_zero.index in (3,4,5,6,7,8):
@@ -64,9 +66,21 @@ class TileBoard(object):
 
     def move_left(self):
         #find tile to left - TODO FOr loop
+        # find tile with tile_zero.index-1 - increment
+        self.tile_zero.move_left
         foundTile = self.tileList[3]
         foundTile.move_right()
         self.tile_zero.move_left()
+
+    def move_right(self):
+        self.tile_zero.move_right
+
+    def move_up(self):
+        self.tile_zero.move_up
+
+    def move_down(self):
+        self.tile_zero.move_down
+      #  tileToMove = self.tileList.__getitem__()
 
 
     def show(self):
@@ -80,8 +94,10 @@ class TileBoard(object):
 def indexSort(Tile):
     return Tile.index
 
-#def CreateChildBoard(existingBoard):
-#    childlist = sorted(existingBoard, key=indexSort)
+def CreateChildBoard(existingBoard):
+    childList = sorted(existingBoard, key=indexSort)
+    return TileBoard(childList[0], childList[1], childList[2], childList[3], childList[4], childList[5],
+                     childList[6], childList[7], childList[8])
 
 
 def CreateInitialBoard():
@@ -106,6 +122,18 @@ def CreateInitialBoard():
 
 board1 = CreateInitialBoard()
 board1.show()
+
+board2 = CreateChildBoard(board1.tileList)
+board2.show()
+
+board3 = board2.move_up()
+board3.show()
+
+board4 = board2.move_down()
+board4.show()
+#board2 = CreateChildBoard(board1)
+#board2.show()
+
 #board2.show()
 
 #board2.move_left()
