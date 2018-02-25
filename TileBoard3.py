@@ -147,15 +147,28 @@ def CreateInitialBoard1():
 
 
 def CreateInitialBoard():
-    tile1 = Tile(0,2)
-    tile2 = Tile(1,1)
-    tile3 = Tile(2,0)
+    tile1 = Tile(0,1)
+    tile2 = Tile(1,0)
+    tile3 = Tile(2,2)
     tile4 = Tile(3,3)
     tile5 = Tile(4,4)
     tile6 = Tile(5,5)
     tile7 = Tile(6,6)
     tile8 = Tile(7,7)
     tile9 = Tile(8,8)
+    return TileBoard(tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8, tile9)
+
+
+def CreateStartBoard(value1, value2, value3, value4, value5, value6, value7, value8, value9):
+    tile1 = Tile(0, value1)
+    tile2 = Tile(1, value2)
+    tile3 = Tile(2, value3)
+    tile4 = Tile(3, value4)
+    tile5 = Tile(4, value5)
+    tile6 = Tile(5, value6)
+    tile7 = Tile(6, value7)
+    tile8 = Tile(7, value8)
+    tile9 = Tile(8, value9)
     return TileBoard(tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8, tile9)
 
 def CreateGoalBoard():

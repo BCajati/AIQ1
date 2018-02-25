@@ -21,10 +21,9 @@ def boardsAreSame(board1, board2):
     else:
         return False
 
-
-def boardFoundInQueue(boardQueue, board):
-    while boardQueue.empty() != True:
-        if boardsAreSame(boardQueue.get(), board):
+def boardFoundInSet(boardSet, board):
+    for node in boardSet:
+       if boardsAreSame(node, board):
             return True
     return False
 
@@ -35,9 +34,10 @@ def addMoveDownBoard(node):
         nodeDown = deepcopy(node)
         nodeDown.move_down()
         # see if this board already exists in frontier
-        if boardFoundInQueue(frontier, nodeDown) == False:
+        if boardFoundInSet(visited, nodeDown) == False:
             print("Add Move Down")
             frontier.put(nodeDown)
+            visited.add(nodeDown)
 
 def addMoveUpBoard(node):
     if node.can_move_up():
@@ -46,27 +46,30 @@ def addMoveUpBoard(node):
         nodeUp = deepcopy(node)
         nodeUp.move_up()
         # see if this board already exists in frontier
-        if boardFoundInQueue(frontier, nodeUp) == False:
+        if boardFoundInSet(visited, nodeUp) == False:
             print("Add Move Up")
             frontier.put(nodeUp)
+            visited.add(nodeUp)
 
 def addMoveRightBoard(node):
     if node.can_move_right():
         nodeRight = deepcopy(node)
         nodeRight.move_right()
         # see if this board already exists in frontier
-        if boardFoundInQueue(frontier, nodeRight) == False:
+        if boardFoundInSet(visited, nodeRight) == False:
             print("Add Move Right")
             frontier.put(nodeRight)
+            visited.add(nodeRight)
 
 def addMoveLeftBoard(node):
-    if board1.can_move_left():
+    if node.can_move_left():
         nodeLeft = deepcopy(node)
         nodeLeft.move_left()
         # see if this board already exists in frontier
-        if boardFoundInQueue(frontier, nodeLeft) == False:
+        if boardFoundInSet(visited, nodeLeft) == False:
             print("Add Move Left")
             frontier.put(nodeLeft)
+            visited.add(nodeLeft)
 
 
 def showFrontier():
@@ -75,29 +78,51 @@ def showFrontier():
         board.show()
 
 
-board1 = CreateInitialBoard()
+#board1 = CreateStartBoard(2,1,0,3,4,5,6,7,8)
+
+#works
+#board1 = CreateStartBoard(3,1,2,0,4,5,6,7,8)
+
+#works
+#board1 = CreateStartBoard(3,1,2,6,4,5,0,7,8)
+
+#works
+#board1 = CreateStartBoard(3,1,2,6,4,5,7,0,8)
+
+#doesn't work
+#board1 = CreateStartBoard(4,1,2,3,0,5,6,7,8)
+
+board1 = CreateStartBoard(8,0,1,2,4,5,3,6,7)
+
 goalBoard = CreateGoalBoard()
 
-frontier = LifoQueue()
+frontier = Queue()
 explored = set()
 visited = set()
 frontier.put(board1)
 
 loop = 0
+visited.add(board1)
 while True:
     loop += 1
+    if frontier.empty():
+        print("failure")
+        break;
+
     node = frontier.get()
     explored.add(node)
     node.show()
     if boardsAreSame(node, goalBoard):
         print("Found Goal")
+        break;
 
     # add child nodes
     addMoveRightBoard(node)
     addMoveLeftBoard(node)
     addMoveUpBoard(node)
     addMoveDownBoard(node)
-    if loop == 20:
+    if loop == 50:
+        print("failure")
         break
 
 
