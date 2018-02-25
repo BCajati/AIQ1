@@ -17,7 +17,7 @@ class Tile(object):
         self.index = self.index - self.numColumns
 
     def move_down(self):
-        self.row = self.index + self.numColumns
+        self.index = self.index + self.numColumns
 
     def is_empty_tile(self):
         return True if self.value == 0 else False
@@ -29,6 +29,7 @@ class TileBoard(object):
 
     def __init__(self, tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8, tile9):
 
+        self.numColumns = 3
         self.tileList = []
         self.tileList.append(tile1)
         self.tileList.append(tile2)
@@ -65,22 +66,36 @@ class TileBoard(object):
             return True
 
     def move_left(self):
-        #find tile to left - TODO FOr loop
-        # find tile with tile_zero.index-1 - increment
-        self.tile_zero.move_left
-        foundTile = self.tileList[3]
-        foundTile.move_right()
+        tileIndexToSwap = self.tile_zero.index - 1
+        tileToSwap = self.find_tile(tileIndexToSwap)
         self.tile_zero.move_left()
+        tileToSwap.move_right()
 
     def move_right(self):
-        self.tile_zero.move_right
+        tileIndexToSwap = self.tile_zero.index + 1
+        tileToSwap = self.find_tile(tileIndexToSwap)
+        self.tile_zero.move_right()
+        tileToSwap.move_left()
+
 
     def move_up(self):
-        self.tile_zero.move_up
+        tileIndexToSwap = self.tile_zero.index - self.numColumns
+        tileToSwap = self.find_tile(tileIndexToSwap)
+        self.tile_zero.move_up()
+        tileToSwap.move_down()
+
 
     def move_down(self):
-        self.tile_zero.move_down
-      #  tileToMove = self.tileList.__getitem__()
+        tileIndexToSwap = self.tile_zero.index + self.numColumns
+        tileToSwap = self.find_tile(tileIndexToSwap)
+        self.tile_zero.move_down()
+        tileToSwap.move_up()
+
+    def find_tile(self, atIndex):
+        for tile in self.tileList:
+            if tile.index == atIndex:
+                return tile
+
 
 
     def show(self):
@@ -112,32 +127,3 @@ def CreateInitialBoard():
     tile9 = Tile(8,6)
     return TileBoard(tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8, tile9)
 
-#myList3 = sorted(myList2 ,key=lamba Tile: Tile.index)
-#myList3 = sorted(myList2, key=indexSort)
-
-#board1 = TileBoard(0,1,2,3,4,5,6,7,8)
-#board2 = TileBoard(3,4,5,1,0,2,6,7,8)
-
-#board2 = board1.copy_board()
-
-board1 = CreateInitialBoard()
-board1.show()
-
-board2 = CreateChildBoard(board1.tileList)
-board2.show()
-
-board3 = board2.move_up()
-board3.show()
-
-board4 = board2.move_down()
-board4.show()
-#board2 = CreateChildBoard(board1)
-#board2.show()
-
-#board2.show()
-
-#board2.move_left()
-#board2.show()
-
-#print(board1.can_move_down())
-#print(board2.can_move_down())
