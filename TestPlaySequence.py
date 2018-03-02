@@ -47,7 +47,7 @@ def addMoveUpBoard(node):
         nodeUp.move_up()
         # see if this board already exists in frontier
         if boardFoundInSet(visited, nodeUp) == False:
-            print("Add Move Up")
+            #print("Add Move Up")
             frontier.put(nodeUp)
             visited.add(nodeUp)
 
@@ -57,7 +57,7 @@ def addMoveRightBoard(node):
         nodeRight.move_right()
         # see if this board already exists in frontier
         if boardFoundInSet(visited, nodeRight) == False:
-            print("Add Move Right")
+            #print("Add Move Right")
             frontier.put(nodeRight)
             visited.add(nodeRight)
 
@@ -92,7 +92,15 @@ def showFrontier():
 #doesn't work
 #board1 = CreateStartBoard(4,1,2,3,0,5,6,7,8)
 
-board1 = CreateStartBoard(8,0,1,2,4,5,3,6,7)
+path_to_goal = []
+cost_of_path = 0
+nodes_expanded = 0
+search_depth = 0
+max_search_depth = 0
+
+
+#board1 = CreateStartBoard(8,0,1,2,4,5,3,6,7)
+board1 = CreateStartBoard(1,2,5,3,4,0,6,7,8)
 
 goalBoard = CreateGoalBoard()
 
@@ -110,22 +118,30 @@ while True:
         break;
 
     node = frontier.get()
+    #path_to_goal.append(",")
+    path_to_goal.append(node.get_board_move())
+    nodes_expanded += 1
     explored.add(node)
     node.show()
     if boardsAreSame(node, goalBoard):
         print("Found Goal")
+        path_to_goal = node.node_path
         break;
 
     # add child nodes
+    addMoveUpBoard(node)
     addMoveRightBoard(node)
     addMoveLeftBoard(node)
-    addMoveUpBoard(node)
     addMoveDownBoard(node)
     if loop == 50:
         print("failure")
         break
 
 
+print( 'path_to_goal:' ,path_to_goal)
+print ('cost_of_path:', cost_of_path)
+print('nodes_expanded:', nodes_expanded)
+print('search_depth', search_depth)
 
 
 

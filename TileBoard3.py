@@ -30,6 +30,8 @@ class TileBoard(object):
     def __init__(self, tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8, tile9):
 
         self.numColumns = 3
+        self.board_move = ""
+        self.node_path = ""
         self.tileList = []
         self.tileList.append(tile1)
         self.tileList.append(tile2)
@@ -43,6 +45,18 @@ class TileBoard(object):
         for x in self.tileList:
             if x.value == 0:
                 self.tile_zero = x
+
+    def set_board_mode(self, move):
+        self.board_move = move
+
+    def get_board_move(self):
+        return self.board_move
+
+    def set_node_path(self, parent_path):
+        self.node_path = parent_path + self.board_move
+
+    def get_node_path(self):
+        return self.node_path
 
     def tiles(self):
         return self.tileList
@@ -90,12 +104,15 @@ class TileBoard(object):
         tileToSwap = self.find_tile(tileIndexToSwap)
         self.tile_zero.move_left()
         tileToSwap.move_right()
+        self.board_move = "Left"
+        self.node_path += "Left"
 
     def move_right(self):
         tileIndexToSwap = self.tile_zero.index + 1
         tileToSwap = self.find_tile(tileIndexToSwap)
         self.tile_zero.move_right()
         tileToSwap.move_left()
+        self.board_move = "Right"
 
 
     def move_up(self):
@@ -103,6 +120,7 @@ class TileBoard(object):
         tileToSwap = self.find_tile(tileIndexToSwap)
         self.tile_zero.move_up()
         tileToSwap.move_down()
+        self.board_move = "Up"
 
 
     def move_down(self):
@@ -110,6 +128,7 @@ class TileBoard(object):
         tileToSwap = self.find_tile(tileIndexToSwap)
         self.tile_zero.move_down()
         tileToSwap.move_up()
+        self.board_move = "Down"
 
     def find_tile(self, atIndex):
         for tile in self.tileList:
