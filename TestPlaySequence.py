@@ -2,6 +2,7 @@ from TileBoard3 import *
 from copy import deepcopy
 from queue import *
 from time import perf_counter
+from BreadthFirstSearch import *
 
 #TODO - I think I am removing from queue while searching
 #TODO - Need to add search in explored also
@@ -9,18 +10,7 @@ from time import perf_counter
 def doDebug():
     return False
 
-def listsAreSame(x, y, len):
-    newList = [i for i, j in zip(x, y) if i == j]
-    if newList.__len__() == len:
-        return True
-    else:
-        return False
 
-def boardsAreSame(board1, board2):
-    if listsAreSame(board1.sortedTiles(), board2.sortedTiles(), 9):
-        return True
-    else:
-        return False
 
 def boardFoundInSet(boardSet, board):
     for node in boardSet:
@@ -28,59 +18,13 @@ def boardFoundInSet(boardSet, board):
             return True
     return False
 
-def addMoveDownBoard(node):
-    if node.can_move_down():
-        if doDebug():
-            node.show()
-        nodeDown = deepcopy(node)
-        nodeDown.move_down()
-        nodeDown.set_board_depth(node.get_board_depth() + 1)
-        # see if this board already exists in frontier
-        if boardFoundInSet(visited, nodeDown) == False:
-            print("Add Move Down")
-            frontier.put(nodeDown)
-            visited.add(nodeDown)
-
-def addMoveUpBoard(node):
-    if node.can_move_up():
-        if doDebug():
-            board1.show()
-        nodeUp = deepcopy(node)
-        nodeUp.move_up()
-        nodeUp.set_board_depth(node.get_board_depth() + 1)
-        # see if this board already exists in frontier
-        if boardFoundInSet(visited, nodeUp) == False:
-            #print("Add Move Up")
-            frontier.put(nodeUp)
-            visited.add(nodeUp)
-
-def addMoveRightBoard(node):
-    if node.can_move_right():
-        nodeRight = deepcopy(node)
-        nodeRight.move_right()
-        nodeRight.set_board_depth(node.get_board_depth() + 1)
-        # see if this board already exists in frontier
-        if boardFoundInSet(visited, nodeRight) == False:
-            #print("Add Move Right")
-            frontier.put(nodeRight)
-            visited.add(nodeRight)
-
-def addMoveLeftBoard(node):
-    if node.can_move_left():
-        nodeLeft = deepcopy(node)
-        nodeLeft.move_left()
-        nodeLeft.set_board_depth(node.get_board_depth() + 1)
-        # see if this board already exists in frontier
-        if boardFoundInSet(visited, nodeLeft) == False:
-            print("Add Move Left")
-            frontier.put(nodeLeft)
-            visited.add(nodeLeft)
 
 
-def showFrontier():
-    while frontier.empty() != True:
-        board = frontier.get()
-        board.show()
+
+#def showFrontier():
+#    while frontier.empty() != True:
+#        board = frontier.get()
+#        board.show()
 
 
 #board1 = CreateStartBoard(2,1,0,3,4,5,6,7,8)
@@ -110,40 +54,9 @@ board1.set_board_depth(0)
 
 goalBoard = CreateGoalBoard()
 
-frontier = Queue()
-explored = set()
-visited = set()
-frontier.put(board1)
-
 perf_counter()
-loop = 0
-visited.add(board1)
-while True:
-    loop += 1
-    if frontier.empty():
-        print("failure")
-        break;
+finalBoard = breadth_first_search(board1, goalBoard)
 
-    node = frontier.get()
-    #path_to_goal.append(",")
-    #path_to_goal.append(node.get_board_move())
-    nodes_expanded += 1
-    explored.add(node)
-    node.show()
-    if boardsAreSame(node, goalBoard):
-        print("Found Goal")
-        finalBoard = node
-      #  path_to_goal = node.node_path
-        break;
-
-    # add child nodes
-    addMoveUpBoard(node )
-    addMoveRightBoard(node, )
-    addMoveLeftBoard(node)
-    addMoveDownBoard(node)
-    if loop == 50:
-        print("failure")
-        break
 
 elapsed_time = perf_counter()
 

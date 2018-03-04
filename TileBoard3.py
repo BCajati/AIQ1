@@ -1,3 +1,8 @@
+from copy import deepcopy
+
+def doDebug():
+    return False
+
 class Tile(object):
     #Tried using row/col but sorting too hard in python
     #Instead use index as 0..9 position index
@@ -151,7 +156,60 @@ class TileBoard(object):
         print(sortedList[3].value, ",", sortedList[4].value, ",", sortedList[5].value)
         print(sortedList[6].value, ",", sortedList[7].value, ",", sortedList[8].value, "\n")
 
+def addMoveDownBoard(node):
+    if node.can_move_down():
+        if doDebug():
+            node.show()
+        nodeDown = deepcopy(node)
+        nodeDown.move_down()
+        nodeDown.set_board_depth(node.get_board_depth() + 1)
+        # see if this board already exists in frontier
+        return nodeDown
+    else:
+        return None
 
+def addMoveUpBoard(node):
+    if node.can_move_up():
+        if doDebug():
+            node.show()
+        nodeUp = deepcopy(node)
+        nodeUp.move_up()
+        nodeUp.set_board_depth(node.get_board_depth() + 1)
+        return nodeUp
+    else:
+        return None
+
+
+def addMoveRightBoard(node):
+    if node.can_move_right():
+        nodeRight = deepcopy(node)
+        nodeRight.move_right()
+        nodeRight.set_board_depth(node.get_board_depth() + 1)
+        return nodeRight
+    else:
+        return None
+
+def addMoveLeftBoard(node):
+    if node.can_move_left():
+        nodeLeft = deepcopy(node)
+        nodeLeft.move_left()
+        nodeLeft.set_board_depth(node.get_board_depth() + 1)
+        return nodeLeft
+    else:
+        return None
+
+def listsAreSame(x, y, len):
+    newList = [i for i, j in zip(x, y) if i == j]
+    if newList.__len__() == len:
+        return True
+    else:
+        return False
+
+def boardsAreSame(board1, board2):
+    if listsAreSame(board1.sortedTiles(), board2.sortedTiles(), 9):
+        return True
+    else:
+        return False
 
 def indexSort(Tile):
     return Tile.index
