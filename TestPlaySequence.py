@@ -33,6 +33,7 @@ def addMoveDownBoard(node):
             node.show()
         nodeDown = deepcopy(node)
         nodeDown.move_down()
+        nodeDown.set_board_depth(node.get_board_depth() + 1)
         # see if this board already exists in frontier
         if boardFoundInSet(visited, nodeDown) == False:
             print("Add Move Down")
@@ -45,6 +46,7 @@ def addMoveUpBoard(node):
             board1.show()
         nodeUp = deepcopy(node)
         nodeUp.move_up()
+        nodeUp.set_board_depth(node.get_board_depth() + 1)
         # see if this board already exists in frontier
         if boardFoundInSet(visited, nodeUp) == False:
             #print("Add Move Up")
@@ -55,6 +57,7 @@ def addMoveRightBoard(node):
     if node.can_move_right():
         nodeRight = deepcopy(node)
         nodeRight.move_right()
+        nodeRight.set_board_depth(node.get_board_depth() + 1)
         # see if this board already exists in frontier
         if boardFoundInSet(visited, nodeRight) == False:
             #print("Add Move Right")
@@ -65,6 +68,7 @@ def addMoveLeftBoard(node):
     if node.can_move_left():
         nodeLeft = deepcopy(node)
         nodeLeft.move_left()
+        nodeLeft.set_board_depth(node.get_board_depth() + 1)
         # see if this board already exists in frontier
         if boardFoundInSet(visited, nodeLeft) == False:
             print("Add Move Left")
@@ -101,6 +105,7 @@ max_search_depth = 0
 
 #board1 = CreateStartBoard(8,0,1,2,4,5,3,6,7)
 board1 = CreateStartBoard(1,2,5,3,4,0,6,7,8)
+board1.set_board_depth(0)
 
 goalBoard = CreateGoalBoard()
 
@@ -108,6 +113,7 @@ frontier = Queue()
 explored = set()
 visited = set()
 frontier.put(board1)
+
 
 loop = 0
 visited.add(board1)
@@ -119,18 +125,19 @@ while True:
 
     node = frontier.get()
     #path_to_goal.append(",")
-    path_to_goal.append(node.get_board_move())
+    #path_to_goal.append(node.get_board_move())
     nodes_expanded += 1
     explored.add(node)
     node.show()
     if boardsAreSame(node, goalBoard):
         print("Found Goal")
-        path_to_goal = node.node_path
+        finalBoard = node
+      #  path_to_goal = node.node_path
         break;
 
     # add child nodes
-    addMoveUpBoard(node)
-    addMoveRightBoard(node)
+    addMoveUpBoard(node )
+    addMoveRightBoard(node, )
     addMoveLeftBoard(node)
     addMoveDownBoard(node)
     if loop == 50:
@@ -138,10 +145,11 @@ while True:
         break
 
 
-print( 'path_to_goal:' ,path_to_goal)
+print( 'path_to_goal:' ,finalBoard.node_path)
 print ('cost_of_path:', cost_of_path)
 print('nodes_expanded:', nodes_expanded)
-print('search_depth', search_depth)
+print('search_depth', finalBoard.get_board_depth())
+finalBoard.show()
 
 
 
