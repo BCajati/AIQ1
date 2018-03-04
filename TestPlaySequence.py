@@ -1,6 +1,7 @@
 from TileBoard3 import *
 from copy import deepcopy
 from queue import *
+from time import perf_counter
 
 #TODO - I think I am removing from queue while searching
 #TODO - Need to add search in explored also
@@ -114,7 +115,7 @@ explored = set()
 visited = set()
 frontier.put(board1)
 
-
+perf_counter()
 loop = 0
 visited.add(board1)
 while True:
@@ -144,11 +145,15 @@ while True:
         print("failure")
         break
 
+elapsed_time = perf_counter()
 
+cost_of_path = finalBoard.get_board_depth
 print( 'path_to_goal:' ,finalBoard.node_path)
 print ('cost_of_path:', cost_of_path)
 print('nodes_expanded:', nodes_expanded)
 print('search_depth', finalBoard.get_board_depth())
+print ('cost_of_path', cost_of_path)
+print('elapsed_time', elapsed_time)
 finalBoard.show()
 
 
